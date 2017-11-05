@@ -49,3 +49,18 @@ DF_grouped_by_author.non_stopword_count.describe()
 DF_grouped_by_author.hist(log = True)
 ##NOTE some sentences have more than 100 characters -> more preprocessing required
 
+#%% Identify unsplitted sentences
+big_sentences_DF = train_DataFrame[train_DataFrame.word_count > 100 ]
+
+# are first words in sentences stop words? if so we could use this to split big sentences: if is Upper case and is stop word then split...
+def find_first_word(vector_of_words):
+    # function to identify the first wordin a sentence (ignores quotes and other non-letter characters)
+    i = 0    
+    while not re.match(r'\w.*', vector_of_words[i]):
+        i +=1
+    return vector_of_words[i]
+
+number_of_sent_starting_with_stopword = train_DataFrame.word_vector.apply(find_first_word).apply(lambda x: x.lower() in stopwords).sum()
+print("{0} out of {1} sentences start with a stop word".format(
+        number_of_sent_starting_with_stopword,
+        train_DataFrame.count()[0]))
