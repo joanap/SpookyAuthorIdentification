@@ -25,17 +25,27 @@ vector_of_words = nltk.word_tokenize(example_text)
 print(example_text)
 print(vector_of_words)
 number_of_words = len(vector_of_words)
+vector_of_stopwords = [i for i in vector_of_words if (i in stopwords)] 
+number_of_stop_words = len( vector_of_stopwords )
 
 #%% Create len feature for the whole dataset
 stopwords = nltk.corpus.stopwords.words('english')
 
+def count_stop_words(vector_of_words):
+    vector_of_stopwords = [i for i in vector_of_words if (i.lower() in stopwords)] 
+    return len( vector_of_stopwords )
+
 train_DataFrame['word_vector'] = train_DataFrame.text.apply(nltk.word_tokenize)
 train_DataFrame['word_count'] = train_DataFrame.word_vector.apply(len)
-
+train_DataFrame['stopword_count'] = train_DataFrame.word_vector.apply(count_stop_words)
+train_DataFrame['non_stopword_count'] = train_DataFrame.word_count - train_DataFrame.stopword_count
 
 #%% analyse new features
-authors = train_DataFrame.author.unique()
-mean_word_count = [train_DataFrame[train_DataFrame.author == auth ].word_count.mean() for auth in authors]
+DF_grouped_by_author = train_DataFrame.groupby("author")
+DF_grouped_by_author.word_count.describe()
+DF_grouped_by_author.stopword_count.describe()
+DF_grouped_by_author.non_stopword_count.describe()
 
-plt.bar(range(len(authors)), mean_word_count)
-plt.xticks(range(len(authors)), authors)
+DF_grouped_by_author.hist(log = True)
+##NOTE some sentences have more than 100 characters -> more preprocessing required
+
