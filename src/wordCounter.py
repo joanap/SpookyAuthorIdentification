@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Tue Nov  7 20:26:52 2017
+
+@author: Joana Pinto
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Mon Nov  6 21:50:11 2017
 
 @author: Joana Pinto
@@ -9,6 +16,8 @@ Created on Mon Nov  6 21:50:11 2017
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+
 
 #default constructor
 #CountVectorizer(analyzer=...'word', binary=False, decode_error=...'strict',
@@ -36,3 +45,6 @@ bigram_features = bigram_vect.get_feature_names()
 #get the index by word
 unigram_vect.vocabulary_.get('document')
 
+tfidf_transformer = TfidfTransformer()
+unigrams_tfidf = tfidf_transformer.fit_transform(unigram_counts)
+unigrams_tfidf.shape
