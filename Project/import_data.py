@@ -27,37 +27,41 @@ def find_split_words(vector_of_words):
         split_words.remove('I') # remove "I" word
     return split_words
 
+#%%
 #  This function receives a vector of words that represent more than one 
 # sentence to be splitted and returns a vector of the splitted sentences  
-def split_vector_of_words_into_sentences(vector_of_words):
+def split_text_into_sentences(text):
+    vector_of_words = nltk.word_tokenize(text)
     split_words = find_split_words(vector_of_words)
     number_of_words = len(vector_of_words)
     vector_of_sentences = []
     sentence_beggining = 0
     sentence_end = 1
     while sentence_end < number_of_words:
-        if vector_of_words[ sentence_end ] in split_words or sentence_end == number_of_words-1:
-            vector_of_sentences.append(vector_of_words[sentence_beggining : sentence_end]+['.'])
-            sentence_beggining = sentence_end
-            sentence_end += 1
+        if vector_of_words[ sentence_end ] in split_words or sentence_end == number_of_words - 1:
+            if sentence_end == number_of_words - 1:
+                sentence_end += 1
+            new_sentence = vector_of_words[sentence_beggining : sentence_end]
+            if len(new_sentence) == number_of_words:
+                vector_of_sentences.append(text)
+            else:
+                vector_of_sentences.append(' '.join(new_sentence))
+                sentence_beggining = sentence_end
+                sentence_end += 1
         sentence_end += 1
     return vector_of_sentences
 
+#%%
 ## create a new dataframe in which the multiple sentences have been splitted into several rows
 dataframe_array = []
 
 for index, row in train_DataFrame.iterrows():
-    vector_of_sentences = split_vector_of_words_into_sentences(nltk.word_tokenize(row.text))
+    vector_of_sentences = split_text_into_sentences(row.text)
     for sentence in vector_of_sentences:
         dataframe_array.append([row.id,sentence,row.author])
 
-new_train_DataFrame = pd.DataFrame(dataframe_array, columns = ['sentence_group_id','word_vector','author'])  
-#save as xlsx
+new_train_DataFrame = pd.DataFrame(dataframe_array, columns = ['sentence_group_id','text','author'])  
 new_train_DataFrame.to_excel('../input/parsed_sentences.xlsx')
 
-#join word vector into a single string and save to a csv
-new_train_DataFrame_joined = new_train_DataFrame
-new_train_DataFrame_joined['text'] = new_train_DataFrame_joined.word_vector.apply(lambda x: ' '.join(x))
-del new_train_DataFrame_joined['word_vector']
-
+#join word vector into a single string and save to a csv - currently not working due to an unsupported character encoding
 new_train_DataFrame_joined.to_csv('../input/parsed_sentences.csv')
