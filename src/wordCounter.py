@@ -39,7 +39,7 @@ test_DataFrame = pd.read_csv('../input/test.csv')
 
 unigram_vect = CountVectorizer()
 
-Ngram_vect = CountVectorizer(ngram_range=(2, 2), token_pattern=r'\b\w\w+\b', 
+Ngram_vect = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w\w+\b', 
                               min_df=2,
                               stop_words='english')
 
@@ -67,18 +67,25 @@ Ngrams_tfidf = tfidf_transformer.fit_transform(Ngram_counts)
 Ngrams_tfidf_test = tfidf_transformer.transform(Ngram_count_test)
 
 #%% Train and predict using unigrams
+X_train = unigrams_tfidf
+X_test = unigrams_tfidf_test
+y_train = train_DataFrame.author
+row_id = test_DataFrame.id
+
 train_predict_and_export(
-            unigrams_tfidf, 
-            unigrams_tfidf_test, 
-            train_DataFrame.author, 
-            test_DataFrame.id, 
+            X_train, 
+            X_test, 
+            y_train, 
+            row_id, 
             'submission_NaiveBayses.csv')
 
 #%% Train and predict using N-grams
+X_train = Ngrams_tfidf 
+X_test = Ngrams_tfidf_test
 
 train_predict_and_export(
-        Ngrams_tfidf, 
-        Ngrams_tfidf_test, 
-        train_DataFrame.author, 
-        test_DataFrame, 
-        'submission_NaiveBayses_bigrams')
+        X_train, 
+        X_test, 
+        y_train, 
+        row_id, 
+        'submission_NaiveBayses_bigrams.csv')
