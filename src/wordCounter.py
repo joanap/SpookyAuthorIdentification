@@ -39,7 +39,7 @@ test_DataFrame = pd.read_csv('../input/test.csv')
 
 unigram_vect = CountVectorizer()
 
-Ngram_vect = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w\w+\b', 
+Ngram_vect = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w\b', 
                               min_df=2,
                               stop_words='english')
 

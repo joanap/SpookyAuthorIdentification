@@ -5,6 +5,8 @@ Created on Wed Nov  8 22:09:43 2017
 @author: ASSG
 """
 
+from sklearn.naive_bayes import MultinomialNB
+import pandas as pd
 
 #%% Generic function to make predictions and output them to a valid csv file (só pq é pra ti Joana :P)
 
