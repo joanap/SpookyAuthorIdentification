@@ -39,7 +39,7 @@ test_DataFrame = pd.read_csv('../input/test.csv')
 
 unigram_vect = CountVectorizer()
 
-Ngram_vect = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w\b', 
+Ngram_vect = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w\w+\b', 
                               min_df=2,
                               stop_words='english')
 
@@ -83,9 +83,18 @@ train_predict_and_export(
 X_train = Ngrams_tfidf 
 X_test = Ngrams_tfidf_test
 
-train_predict_and_export(
+testDF = train_predict_and_export(
         X_train, 
         X_test, 
         y_train, 
         row_id, 
         'submission_NaiveBayses_bigrams.csv')
+
+#%%
+testDF.EAP.hist(log=True)
+testDF.HPL.hist(log=True)
+testDF.MWS.hist(log=True)
+
+test_DataFrame[testDF.HPL.apply(lambda x: x<0.31 and x>0.29)]
+X_test.shape
+
