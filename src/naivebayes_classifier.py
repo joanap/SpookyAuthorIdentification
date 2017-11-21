@@ -5,13 +5,6 @@ Created on Mon Nov 13 20:26:04 2017
 @author: Joana Pinto
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 13 20:18:02 2017
-
-@author: Joana Pinto
-"""
-
 from sklearn.naive_bayes import MultinomialNB
 from generic_classifier import GenericClassifier
 import pandas as pd
@@ -35,7 +28,10 @@ class NaiveBayesClassifier(GenericClassifier):
                      columns=self.list_of_classes)
 
 #%%Naive Bayes Classifier as a script  
+#to load data uncomment following line
+#runfile('C:/Users/ASSG/Dropbox/Documents/GitHub/SpookyAuthorIdentification/src2/load_DataFrames.py', wdir='C:/Users/ASSG/Dropbox/Documents/GitHub/SpookyAuthorIdentification/src2')
 if __name__ == '__main__':
+    
     classifier = NaiveBayesClassifier()
     classifier.train_and_set_classes(X_train, y_train)
     prediction = classifier.predict(X_test)
