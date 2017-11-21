@@ -20,5 +20,7 @@ def train_predict_and_export(X_train, X_test, Y_train, id, filename):
     submission_DF = pd.concat([id,
                                pd.DataFrame(prediction, columns = classes)], 
                         axis = 1)
-    
+    for i in range(1,4):
+        submission_DF.iloc[:,i] = submission_DF.iloc[:,i].apply(lambda x: 0 if x < 0.2 else x)
     submission_DF.to_csv('../output/' + filename, index = False)
+    return submission_DF
