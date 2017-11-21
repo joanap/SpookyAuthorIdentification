@@ -102,3 +102,4 @@ ENV/
 
 # submission folder
 output/
+output/*.csv
