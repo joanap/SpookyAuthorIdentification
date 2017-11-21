@@ -90,8 +90,6 @@ ENV/
 # Spyder project settings
 .spyderproject
 .spyproject
-.spyderproject/
-.spyproject/
 
 # Rope project settings
 .ropeproject
@@ -101,6 +99,3 @@ ENV/
 
 # mypy
 .mypy_cache/
-
-#submissions
-output/
