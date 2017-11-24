@@ -19,9 +19,9 @@ class GenericClassifier:
     def predict(self, X_test):
         return
         
-#    def build_submission(self, id, predict):
-#        submission_DF = pd.concat([id,
-#                               pd.DataFrame(prediction, columns = classes)], 
-#                        axis = 1)
-#    
-#    submission_DF.to_csv('../output/' + filename, index = False)
+    def build_submission(self, id, predict):
+        submission_DF = pd.concat([id,
+                                   pd.DataFrame(prediction, columns = classes)], 
+                       axis = 1)
+    
+    submission_DF.to_csv('../output/' + filename, index = False)

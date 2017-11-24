@@ -28,7 +28,10 @@ class NaiveBayesClassifier(GenericClassifier):
                      columns=self.list_of_classes)
 
 #%%Naive Bayes Classifier as a script  
+#to load data uncomment following line
+#runfile('C:/Users/ASSG/Dropbox/Documents/GitHub/SpookyAuthorIdentification/src2/load_DataFrames.py', wdir='C:/Users/ASSG/Dropbox/Documents/GitHub/SpookyAuthorIdentification/src2')
 if __name__ == '__main__':
+    
     classifier = NaiveBayesClassifier()
     classifier.train_and_set_classes(X_train, y_train)
     prediction = classifier.predict(X_test)
