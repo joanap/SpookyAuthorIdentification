@@ -14,7 +14,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
 
 # our beautiful functions:
-from spooky_functions import train_predict_and_export
+#from spooky_functions import train_predict_and_export
 
 #%% import data
 train_DataFrame = pd.read_excel('../input/parsed_sentences.xlsx')
