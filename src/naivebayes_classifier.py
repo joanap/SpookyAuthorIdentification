@@ -29,7 +29,7 @@ class NaiveBayesClassifier(GenericClassifier):
 
 #%%Naive Bayes Classifier as a script  
 #to load data uncomment following line
-#runfile('load_DataFrames.py')
+runfile('load_DataFrames.py')
 
 if __name__ == '__main__':
     from submission_builder.write_submission import SubmissionWriter
