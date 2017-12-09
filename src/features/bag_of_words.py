@@ -6,7 +6,7 @@ Created on Tue Nov 21 22:17:21 2017
 """
 
 from sklearn.feature_extraction.text import CountVectorizer
-from abstract_features import AbstractFeatures
+from features.abstract_features import AbstractFeatures
 
 class BagOfWords(AbstractFeatures):
     def __init__(self, Nmin, Nmax, word_pattern, min_df = 1, stopwords = None):
